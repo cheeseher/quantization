@@ -60,9 +60,8 @@
           </div>
         </div>
         
-        <div class="grid grid-cols-2 gap-2">
-          <button class="bg-yellow-500 text-white py-2 rounded-lg font-medium">调整止盈止损</button>
-          <button class="bg-red-600 text-white py-2 rounded-lg font-medium">立即平仓</button>
+        <div class="flex justify-center">
+          <button class="bg-red-600 text-white py-2 px-8 rounded-lg font-medium">立即平仓</button>
         </div>
       </div>
       
@@ -108,17 +107,6 @@
             </div>
           </li>
         </ul>
-      </div>
-      
-      <!-- 额外操作 -->
-      <div class="additional-actions bg-white p-4 rounded-lg shadow">
-        <h2 class="text-lg font-semibold mb-3">额外操作</h2>
-        <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium mb-2">
-          手动加仓
-        </button>
-        <button class="w-full bg-gray-600 text-white py-2 rounded-lg font-medium">
-          切换追踪止盈
-        </button>
       </div>
     </div>
   </div>

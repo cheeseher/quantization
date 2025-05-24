@@ -52,7 +52,7 @@
         <div class="price-group">
           <div class="text-sm text-gray-600 mb-2">BTC</div>
           <div class="grid grid-cols-3 gap-2">
-            <div class="price-card p-3 rounded-lg bg-blue-50">
+            <div class="price-card p-3 rounded-lg bg-gray-50">
               <div class="text-xs text-gray-500 mb-1">现货</div>
               <div class="text-sm font-medium text-gray-500">USDT</div>
               <div class="text-lg font-bold">{{ btcSpotPrice }}</div>
@@ -60,7 +60,7 @@
                 {{ btcSpotChange > 0 ? '+' : '' }}{{ btcSpotChange }}%
               </div>
             </div>
-            <div class="price-card p-3 rounded-lg bg-indigo-50">
+            <div class="price-card p-3 rounded-lg bg-blue-50">
               <div class="text-xs text-gray-500 mb-1">合约</div>
               <div class="text-sm font-medium text-gray-500">USDT</div>
               <div class="text-lg font-bold">{{ btcFuturesPrice }}</div>
@@ -68,7 +68,7 @@
                 {{ btcFuturesChange > 0 ? '+' : '' }}{{ btcFuturesChange }}%
               </div>
             </div>
-            <div class="price-card p-3 rounded-lg bg-purple-50">
+            <div class="price-card p-3 rounded-lg bg-blue-50">
               <div class="text-xs text-gray-500 mb-1">合约</div>
               <div class="text-sm font-medium text-gray-500">USDC</div>
               <div class="text-lg font-bold">{{ btcUsdcPrice }}</div>
@@ -83,7 +83,7 @@
         <div class="price-group">
           <div class="text-sm text-gray-600 mb-2">ETH</div>
           <div class="grid grid-cols-3 gap-2">
-            <div class="price-card p-3 rounded-lg bg-blue-50">
+            <div class="price-card p-3 rounded-lg bg-gray-50">
               <div class="text-xs text-gray-500 mb-1">现货</div>
               <div class="text-sm font-medium text-gray-500">USDT</div>
               <div class="text-lg font-bold">{{ ethSpotPrice }}</div>
@@ -91,7 +91,7 @@
                 {{ ethSpotChange > 0 ? '+' : '' }}{{ ethSpotChange }}%
               </div>
             </div>
-            <div class="price-card p-3 rounded-lg bg-indigo-50">
+            <div class="price-card p-3 rounded-lg bg-blue-50">
               <div class="text-xs text-gray-500 mb-1">合约</div>
               <div class="text-sm font-medium text-gray-500">USDT</div>
               <div class="text-lg font-bold">{{ ethFuturesPrice }}</div>
@@ -99,7 +99,7 @@
                 {{ ethFuturesChange > 0 ? '+' : '' }}{{ ethFuturesChange }}%
               </div>
             </div>
-            <div class="price-card p-3 rounded-lg bg-purple-50">
+            <div class="price-card p-3 rounded-lg bg-blue-50">
               <div class="text-xs text-gray-500 mb-1">合约</div>
               <div class="text-sm font-medium text-gray-500">USDC</div>
               <div class="text-lg font-bold">{{ ethUsdcPrice }}</div>
@@ -115,6 +115,17 @@
     <!-- 交易设置 -->
     <div class="trade-settings bg-white p-4 rounded-lg shadow mb-4">
       <h2 class="text-base font-semibold mb-2">交易设置</h2>
+      
+      <!-- 策略选择 -->
+      <div class="mb-3">
+        <div class="text-sm text-gray-600 mb-1">选择策略</div>
+        <select v-model="selectedStrategy" class="w-full p-2 border border-gray-300 rounded-lg bg-white">
+          <option v-for="strategy in strategies" :key="strategy.id" :value="strategy.id">
+            {{ strategy.name }}
+          </option>
+        </select>
+      </div>
+
       <div class="mb-3">
         <div class="text-sm text-gray-600 mb-1">选择币种</div>
         <div class="flex space-x-2">
@@ -129,6 +140,7 @@
           </button>
         </div>
       </div>
+      
       <div>
         <div class="text-sm text-gray-600 mb-1">交易类型</div>
         <div class="flex space-x-2">
@@ -271,6 +283,26 @@ const ethFuturesChange = ref(-1.1)
 const ethUsdcPrice = ref('1806.00')
 const ethUsdcChange = ref(-1.0)
 
+// 策略数据
+const strategies = ref([])
+const selectedStrategy = ref(null)
+
+// 获取策略列表
+const fetchStrategies = () => {
+  // TODO: 从后端获取策略列表
+  strategies.value = [
+    { id: 1, name: '策略 1' },
+    { id: 2, name: '策略 2' },
+    { id: 3, name: '策略 3' }
+  ]
+  selectedStrategy.value = strategies.value[0]?.id
+}
+
+onMounted(() => {
+  fetchStrategies()
+  refreshPrice()
+})
+
 // 刷新价格
 const refreshPrice = () => {
   // 模拟价格更新
@@ -290,10 +322,6 @@ const refreshPrice = () => {
   ethFuturesChange.value = (Math.random() * 5 - 2.5).toFixed(2)
   ethUsdcChange.value = (Math.random() * 5 - 2.5).toFixed(2)
 }
-
-onMounted(() => {
-  refreshPrice()
-})
 
 // 获取方向文本
 const getDirectionText = (direction) => {
