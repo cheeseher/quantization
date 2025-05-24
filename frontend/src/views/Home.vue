@@ -1,6 +1,6 @@
 <template>
   <div class="home-container px-4 py-4">
-    <h1 class="text-xl font-bold mb-4">个人策略交易系统</h1>
+    <h1 class="text-xl font-bold mb-4">策略交易系统</h1>
     
     <!-- 账户信息 -->
     <div class="account-info bg-white p-4 rounded-lg shadow mb-4">
